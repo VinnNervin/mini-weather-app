@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/icon/009-weather-1.png">
+    <title>mini weather app</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/hamburgers.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="side-bar">
+            <div class="city-title">
+                <h1 class="city-name">jakarta, <span class="country-code">ID</span></h1>
+                <button class="add-btn">+</button>
+            </div>
+
+            <button class="close">
+                <p>+</p>
+            </button>
+
+            <div class="city-list">
+                <div class="fav-text">favorite city</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="search-box">
+                <div class="hamburger hamburger--elastic">
+                    <div class="hamburger-box">
+                        <div class="hamburger-inner"></div>
+                    </div>
+                </div>
+                <input class="input" value="jakarta" type="text" placeholder="type a city">
+                <button class="btn">search</button>
+            </div>
+
+            <div class="app-content">
+                <div class="current-data big-box">
+                    <p class="p-current">current weather </p>
+                    <img class="img" src="img/asset/clear.png" alt="weather image">
+                    <p class="weather-info desc"></p>
+                    <p class="weather-desc desc"></p>
+                </div>
+
+                <div class="status-data big-box">
+                    <div class="temp-div ">
+                        <p class="temp">0°C</p>
+                        <img src="img/asset/mid.png" alt="temeparute">
+                    </div>
+                    <div class="wind-div ">
+                        <p class="wind">0 km/h</p>
+                        <img src="img/asset/002-wind.png" alt="wind speed">
+                    </div>
+                </div>
+
+                <div class="more-data">
+                    <div class="time mini-box">
+                        <p class="time-title">time </p>
+                        <p class="times"></p>
+                    </div>
+
+                    <div class="tedency mini-box">
+                        <p class="tedency-title">tedency </p>
+                        <p class="tendecies"></p>
+                    </div>
+
+                    <div class="humidity mini-box">
+                        <p class="humidity-title">humidity </p>
+                        <p class="humidities"></p>
+                    </div>
+                </div>
+
+                <div class="empty">
+                    <p>make sure you type a CITY'S NAME not COUNTRY <br>
+                        and make sure you there are no typo </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="error-box">
+        <p class="error-text"></p>
+    </div>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/button.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

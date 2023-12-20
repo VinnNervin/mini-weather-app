@@ -127,8 +127,8 @@ async function configData() {
 
 function createFav() {
     //jika favhistory memiliki kesamaan 
-    if (cityName === "" | undefined) {
-        cases = "no city have added"
+    if (cityName === "") {
+        cases = "no city have added! "
         error()
     } else {
         if (favHistory.includes(cityName)) {

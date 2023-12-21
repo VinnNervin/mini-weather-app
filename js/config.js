@@ -12,7 +12,11 @@ const tedency = document.querySelector(".tendecies")
 const humidity = document.querySelector(".humidities")
 const favCities = document.querySelector(".fav")
 const moreData = document.querySelector(".more-data")
+
+// FOR IMG
 const imgW = document.querySelector(".img")
+const imgT = document.querySelector(".img-T")
+const imgWi = document.querySelector(".img-W")
 
 //FOR SIDEBAR
 const sideBar = document.querySelector(".side-bar")

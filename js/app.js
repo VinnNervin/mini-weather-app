@@ -1,3 +1,5 @@
+let isDay = ""
+
 const API_KEY = config.API_KEY;
 let jam, menits;
 btn.addEventListener("click", checkData)
@@ -25,8 +27,9 @@ async function configData() {
         const respone = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${inputValue.value}&appid=${API_KEY}`)
         const data = await respone.json()
         console.log(data);
-        inputValue.value = "";
         cityName = `${data.name}`
+        let tempConvert = 0
+
 
         if (data.cod === '404') {
             console.log(data.message);
@@ -34,23 +37,51 @@ async function configData() {
             error()
         } else {
             setData()
+            inputValue.value = "";
         }
 
         function konversi(menit) {
-            if (menit < 0) {
-                jam = 24
-                menits = 60
-                jam += Math.floor(menit / 60);
-                menits += menit % 60;
-                console.log(jam + " " + menits);
-                time.textContent = `${jam}:${menits}`
-            } else {
-                // console.log(menit);
-                jam = Math.floor(menit / 60);
-                menits = menit % 60;
-                // console.log(jam + " " + menits);
-                time.textContent = `${jam}:${menits}`
+            // if (menit < 0) {
+            //     jam = 24
+            //     menits = 60
+            //     jam += Math.floor(menit / 60);
+            //     menits += menit % 60;
+            //     console.log(jam + " " + menits);
+            //     time.textContent = `${jam}:${menits}`
+            // } else {
+            //     // console.log(menit);
+            //     jam = Math.floor(menit / 60);
+            //     menits = menit % 60;
+            //     // console.log(jam + " " + menits);
+            //     time.textContent = `${jam}:${menits}`
+            // }
+
+
+            jam = Math.floor(menit / 60);
+            menits = menit % 60;
+
+            if (jam > 23) {
+                jam = jam % 24;
+            } else if (jam < 0) {
+                jam = jam + 24
             }
+
+            if (menits < 0) {
+                menits += 60
+            }
+
+            let jamformat = jam < 0 ? `0${jam}` : jam
+            let menitFormat = menits < 10 & menits > 0 ? `0${menits}` : menits
+            time.textContent = `${jamformat}:${menitFormat}`
+
+        }
+
+
+
+        if (jam > 0 && jam < 18) {
+            isDay = true;
+        } else {
+            isDay = !isDay;
         }
 
         function set_UTC() {
@@ -65,7 +96,7 @@ async function configData() {
         }
 
         function setData() {
-            let tempConvert = Math.floor(data.main.temp - 273);
+            tempConvert = Math.floor(data.main.temp - 273);
             sideName.textContent = `${cityName} , ${data.sys.country}`
             mainName.textContent = `current weather in ${cityName}`
             temp.textContent = `${tempConvert}°C`
@@ -77,47 +108,42 @@ async function configData() {
             set_UTC()
         }
 
-        console.log(jam);
-        console.log(data.weather[0].description + " deskripsi ");
-        console.log(data.weather[0].main + " weather ");
-
-        if (jam > 12 && jam < 18) {
-            console.log("day");
-
-            if (data.weather[0].main == "Clear") {
-                imgW.src = "img/asset/clear.png"
-
-            } else if (data.weather[0].main == "Clouds") {
-                if (data.weather[0].description === "broken clouds" | "overcast clouds") {
-                    imgW.src = "img/asset/more-cloud-day.png"
-                } else {
-                    imgW.src = "img/asset/cloudy-day.png"
-                }
-
-            } else if (data.weather[0].main === "Rain") {
-
-                if (data.weather[0].description === "extreme rain" | "light intensity shower rain" | "shower rain" | "heavy intensity shower rain" | "ragged shower rain") {
-                    imgW.src = "img/asset/shower-rain.png"
-                } else {
-                    imgW.src = "img/asset/rain.png"
-                }
-
-            } else if (data.weather[0].main === "Drizzle") {
-                imgW.src = ".img/asset/rain.png"
-
-            } else if (data.weather[0].main === "Snow") {
-                imgW.src = ".img/asset/snow.png"
+        if (data.weather[0].main == "Clear") {
+            imgW.src = `img/asset/clear-${isDay}.png`
+        } else if (data.weather[0].main == "Clouds") {
+            if (data.weather[0].description === "scattered clouds" | "few clouds") {
+                imgW.src = `img/asset/cloudy-${isDay}.png`
+            } else {
+                imgW.src = `img/asset/more-cloud-${isDay}.png`
             }
+        } else if (data.weather[0].main === "Rain") {
+            if (data.weather[0].description === "extreme rain" | "light intensity shower rain" | "shower rain" | "heavy intensity shower rain" | "ragged shower rain") {
+                imgW.src = `img/asset/shower-rain.png`
+            } else if (data.weather[0].description === "freezing rain") {
+                imgW.src = `img/asset/snow.png`
+            } else {
+                imgW.src = `img/asset/rain.png`
+            }
+        } else if (data.weather[0].main === "Drizzle") {
+            imgW.src = "img/asset/rain.png"
 
+        } else if (data.weather[0].main === "Snow") {
+            imgW.src = "img/asset/snow.png"
         } else {
-            console.log("night");
-            if (data.weather[0].main == "Clear") {
-                imgW.src = "img/asset/moon.png"
-            } else if (data.weather[0].main == "Clouds") {
-                imgW.src = "img/asset/cloudy-night.png"
-            }
+            imgW.src = `img/asset/clear-${isDay}.png`
         }
 
+        if (tempConvert > 30) {
+            imgT.src = "img/asset/over.png"
+        } else if (tempConvert > 0) {
+            imgT.src = "img/asset/mid.png"
+        } else {
+            imgT.src = "img/asset/cold.png"
+        }
+
+        // console.log(jam);
+        // console.log(data.weather[0].description + " deskripsi ");
+        // console.log(data.weather[0].main + " weather ");
 
     }
     catch (err) {
@@ -127,8 +153,8 @@ async function configData() {
 
 function createFav() {
     //jika favhistory memiliki kesamaan 
-    if (inputValue.value.trim() === "" | undefined) {
-        cases = "no city have added"
+    if (cityName === "") {
+        cases = "no city have added! "
         error()
     } else {
         if (favHistory.includes(cityName)) {
@@ -149,6 +175,7 @@ function createFav() {
         favText.remove()
     }
 }
+
 
 //FOR ERROR
 function error() {

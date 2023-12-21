@@ -10,6 +10,11 @@
 
 html {
     scroll-behavior: smooth;
+    background-color: var(--base2);
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }
 
 * {
@@ -18,7 +23,6 @@ html {
     box-sizing: border-box;
     text-transform: capitalize;
     font-family: 'Montserrat', sans-serif;
-
 
 }
 
@@ -310,8 +314,6 @@ body {
 
     }
 
-
-
     .side-bar {
         /* display: none; */
         margin: 0;
@@ -319,12 +321,13 @@ body {
         z-index: 1;
         /* box-shadow: 2px 2px black; */
         border-right: 2px solid var(--base4);
-        left: -300px;
+        border-bottom: 2px solid var(--base4);
+        left: -400px;
         top: 0;
-        height: 119%;
-        width: 50%;
+        height: 100vh;
+        width: 70%;
         border-radius: 0;
-        transition: all 0.6s;
+        transition: all 0.6s ease-in-out;
     }
 
     .close {
@@ -352,8 +355,13 @@ body {
 
     .side-bar .city-name {
         font-size: large;
+        margin-top: 10px;
     }
 
+    .side-bar .city-list {
+        overflow-y: scroll;
+        height: 90%;
+    }
 
     .main-content {
         padding: 0;

@@ -10,6 +10,8 @@ inputValue.addEventListener("keypress", function (event) {
     }
 })
 
+
+
 checkData()
 
 
@@ -158,6 +160,7 @@ function createFav() {
         error()
     } else {
         if (favHistory.includes(cityName)) {
+
             console.log(cityName + " already added");
             cases = `${cityName} already added`
             error()
@@ -191,13 +194,15 @@ function error() {
 hamburger.addEventListener("click", () => {
     hamburger.classList.add("is-active")
     sideBar.classList.add("side-active")
-
+    document.querySelector("body").style.overflow = "hidden"
+    document.querySelector("body").style.height = "100vh"
 })
 
 closeBtn.addEventListener("click", () => {
     sideBar.classList.remove("side-active")
     hamburger.classList.remove("is-active")
-
+    document.querySelector("body").style.overflow = "scroll"
+    document.querySelector("body").style.height = "max-content"
 })
 
 

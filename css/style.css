@@ -247,7 +247,7 @@ body {
 }
 
 .mini-box p:first-child {
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 .mini-box p:last-child {
@@ -282,7 +282,7 @@ body {
     position: absolute;
     top: -100px;
     height: auto;
-    padding: 10px 0;
+    padding: 10px 5px;
     background-color: var(--base1);
     width: 50%;
     box-shadow: 0 0 5px black;
@@ -304,7 +304,6 @@ body {
 /* media screen for mobile */
 @media screen and (max-width: 600px) {
 
-
     .container {
         background-color: var(--base2);
         display: block;
@@ -324,7 +323,7 @@ body {
         /* box-shadow: 2px 2px black; */
         border-right: 2px solid var(--base4);
         border-bottom: 2px solid var(--base4);
-        left: -400px;
+        left: -600px;
         top: 0;
         height: 120dvh;
         width: 70%;
@@ -416,4 +415,28 @@ body {
 }
 
 /* media screen for tablet */
-@media screen and (max-width: 900px) {}
+@media screen and (min-width: 601px) and (max-width: 979px) {
+    .side-bar .city-name {
+        font-size: medium;
+
+    }
+
+    .mini-box p:first-child {
+        font-size: 3vw;
+    }
+
+    .mini-box p:last-child {
+        font-size: 6vw;
+    }
+
+    .app-content .status-data p {
+        font-size: 3.3vw;
+        font-weight: 400;
+        color: var(--base4);
+    }
+
+    .status-data img {
+        width: 20%;
+    }
+
+}

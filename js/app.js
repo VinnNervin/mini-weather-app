@@ -6,7 +6,6 @@ let isDay = ""
 const API_KEY = config.API_KEY;
 let jam, menits;
 btn.addEventListener("click", checkData)
-addBtn.addEventListener("click", createFav)
 inputValue.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         checkData()
@@ -151,6 +150,8 @@ async function configData() {
 }
 
 //FOR CREATE FAVORITE
+addBtn.addEventListener("click", createFav)
+
 function createFav() {
     //jika favhistory memiliki kesamaan 
     if (cityName === "") {
@@ -188,6 +189,7 @@ citylist2.forEach(element => {
     element.addEventListener('click', () => {
         inputValue.value = element.textContent
         configData()
+        closeSideBar()
     })
 })
 
@@ -210,11 +212,14 @@ hamburger.addEventListener("click", () => {
 })
 
 //CLOSE SIDEBAR
-closeBtn.addEventListener("click", () => {
+function closeSideBar() {
     sideBar.classList.remove("side-active")
     hamburger.classList.remove("is-active")
     document.querySelector("body").style.overflow = "scroll"
     document.querySelector("body").style.height = "max-content"
+}
+closeBtn.addEventListener("click", () => {
+    closeSideBar()
 })
 
 

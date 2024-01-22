@@ -38,4 +38,5 @@ let cityName = ""
 let cases = ""
 let favHistory = []
 
-
+//LOCAL STORAGE
+let getFav = JSON.parse(localStorage.getItem('Favorite')) || [];

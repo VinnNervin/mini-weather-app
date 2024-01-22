@@ -1,5 +1,8 @@
 let isDay = ""
 
+
+
+
 const API_KEY = config.API_KEY;
 let jam, menits;
 btn.addEventListener("click", checkData)
@@ -10,12 +13,11 @@ inputValue.addEventListener("keypress", function (event) {
     }
 })
 
-
-
 checkData()
 
 
-// FUNCTION
+
+// CHECK INPUT != ""
 function checkData() {
     if (inputValue.value.trim() === "") {
         console.log("type a city name")
@@ -24,11 +26,11 @@ function checkData() {
     } else { configData() }
 }
 
+//FETCH DATA
 async function configData() {
     try {
         const respone = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${inputValue.value}&appid=${API_KEY}`)
         const data = await respone.json()
-        console.log(data);
         cityName = `${data.name}`
         let tempConvert = 0
 
@@ -142,25 +144,20 @@ async function configData() {
         } else {
             imgT.src = "img/asset/cold.png"
         }
-
-        // console.log(jam);
-        // console.log(data.weather[0].description + " deskripsi ");
-        // console.log(data.weather[0].main + " weather ");
-
     }
     catch (err) {
         console.log("catch error, error execution")
     }
 }
 
+//FOR CREATE FAVORITE
 function createFav() {
     //jika favhistory memiliki kesamaan 
     if (cityName === "") {
         cases = "no city have added! "
         error()
     } else {
-        if (favHistory.includes(cityName)) {
-
+        if (favHistory.includes(cityName) || getFav.includes(cityName)) {
             console.log(cityName + " already added");
             cases = `${cityName} already added`
             error()
@@ -169,15 +166,30 @@ function createFav() {
             favHistory.push(cityName)
             const addCity = document.createElement("p")
             addCity.textContent = cityName
-            addCity.classList.add("desc", "fav")
+            addCity.classList.add("desc")
             cityList.appendChild(addCity)
+            cityList.childElementCount >= 1 ? favText.remove() : null
+
+            //FOR LOCAL STORAGE
+            let favoriteCity = JSON.parse(localStorage.getItem('Favorite')) || [];
+            favoriteCity.push(cityName);
+            localStorage.setItem('Favorite', JSON.stringify(favoriteCity));
+            favoriteCity = favHistory
+            favoriteCity.forEach(value => {
+                console.log(value);
+            });
         }
     }
 
-    if (cityList.childElementCount = 2) {
-        favText.remove()
-    }
+
 }
+//FOR FAV CLICK
+citylist2.forEach(element => {
+    element.addEventListener('click', () => {
+        inputValue.value = element.textContent
+        configData()
+    })
+})
 
 
 //FOR ERROR
@@ -189,7 +201,6 @@ function error() {
     }, 2000);
 }
 
-
 //FOR SIDE BAR AND BURGER
 hamburger.addEventListener("click", () => {
     hamburger.classList.add("is-active")
@@ -198,6 +209,7 @@ hamburger.addEventListener("click", () => {
     document.querySelector("body").style.height = "100vh"
 })
 
+//CLOSE SIDEBAR
 closeBtn.addEventListener("click", () => {
     sideBar.classList.remove("side-active")
     hamburger.classList.remove("is-active")

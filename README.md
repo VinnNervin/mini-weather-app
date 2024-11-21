@@ -6,6 +6,8 @@
 ###  Project Information
 **Language**
 - Javascript
+
+**Style**
 - CSS
 
 **Library**
